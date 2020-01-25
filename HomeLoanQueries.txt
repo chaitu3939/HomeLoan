@@ -1,0 +1,183 @@
+**customer Table
+
+>create table Customer1
+(Customer_id Number(10) constraint customer_customerId_pk primary key,
+Customer_name varchar(25),
+gender char(6),
+email_id varchar(20) constraint customer_customerEmail_nn not null,
+phone_number number(10),
+password varchar(15) constraint customer_customerPassword_nn not null,
+address varchar(50),
+AdharCard number(12) constraint customer_adharcard_uk unique,
+PanCard varchar(10),
+age number(3),
+Nationality varchar(15));
+
+---------------------------------
+
+**Loan Application
+
+>create table Loan
+(loan_id number(10) constraint Loan_Loan_id_pk primary key,
+rate_of_interest number(5,2),
+estimated_loan_amount number(10,2),
+maxloan_amount_grantable number(10,2),
+tenure number(2),
+customer_id number(10), foreign key(customer_id) references customer1(customer_id));
+
+----------------------------------
+
+
+**Account Number
+
+>create table account_number
+(account_number number(10),
+amount number(10,2),
+loan_id number(10), foreign key(loan_id) references loan(loan_id));
+
+----------------------------------
+
+**income details
+
+>create table income_details
+(loan_id number(20) constraint customer_loan_id_pk primary key,
+property_location varchar(20),
+organisation_type varchar(20),
+property_name varchar(20),
+customer_name varchar(15),
+estimated_amount number(10,2),
+type_of_employement varchar(20),
+retirement_age number(5),
+customer_id number(10), foreign key(customer_id) references customer1(customer_id));
+
+---------------------------------
+
+**documents
+>create table documents
+(salary_payslip varchar(10),
+ voter_id varchar(20),
+ noc varchar(10),
+ agreement_to_sale varchar(10),
+loa varchar(10),
+loan_id number(10), foreign key(loan_id) references loan(loan_id));
+
+--------------------------------
+
+**admin
+>create table admin
+(admin_id number(20),
+admin_name varchar(20),
+admin_type varchar(20),
+password varchar(20));
+
+-------------------------------
+
+**status
+
+>create table status
+(loan_status varchar(15),
+loan_id number(10), foreign key(loan_id) references loan(loan_id));
+
+------------------------------
+
+**callback
+
+>create table call_back
+(name varchar(20),
+phone_number number(10),
+city varchar(20),
+language varchar(10),
+email_id varchar(30));
+
+-----------------------------
+
+**EMI
+>create table Emi
+(bank_name varchar(15),
+Emi_amount number(10,2),
+amount_to_be_paid number(10,2),
+overall_cost number(10,2),
+months number(2),
+due_date date,
+loan_id number(10), foreign key(loan_id) references loan(loan_id));
+
+-----------------------------
+
+**FAQ
+>create table FAQ
+(question varchar(100),
+username varchar(15),
+answer varchar(100),
+mail_id varchar(20));
+
+------------------------------------------
+
+------------------------------------------
+**INSERT**
+
+insert into Customer1
+(Customer_id,Customer_name,gender,email_id,phone_number,password,address,AdharCard,PanCard,age,Nationality)
+values()
+
+
+
+*******************************************************
+
+
+create table call_back(
+username varchar2(15),
+city varchar2(15),
+phone_no number(10),
+title varchar2(10),
+preferred_language varchar2(10) 
+);
+
+create table emi(
+loan_id number(10) ,foreign key (loan_id) references Loan (loan_id),
+tenure number(2),
+payment_per_month number(10,5),
+loan_amount   number(10,5),
+amount_to_be_paid number(10,5),
+pay_date date
+);
+
+
+
+
+
+create table admin(
+admin_id number(6),
+admin_name varchar(15),
+admin_type varchar(15),
+password varchar(8));
+
+/////
+Sequences
+
+Create sequence customer_id
+Start with 10667191
+increment by 1
+nocache
+nocycle;
+
+
+create sequence loan_id
+start with 131211001
+increment by 1
+nocache
+nocycle;
+
+
+insert into customer1 values(customer_id.nextval,'netta','male','sa.nettam@gmail.com',91484287,'pasword','anantapur','142267','baqu7',23,'indian');
+
+
+create table documents
+(salary_payslip blob,
+ voter_id blob,
+ no_objection_certificate blob,
+ agreement_to_sale blob,
+letter_of_authorization blob,
+loan_id number(10), foreign key(loan_id) references income_details(loan_id));
+
+
+
